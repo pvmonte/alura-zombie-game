@@ -12,11 +12,15 @@ public class Jogador : MonoBehaviour
 
     public GameObject textoGameOver;
     public bool vivo = true;
+    Rigidbody rigidbodyJogador;
+    Animator animatorJogador;
 
     // Start is called before the first frame update
     void Start()
     {
         Time.timeScale = 1;
+        rigidbodyJogador = GetComponent<Rigidbody>();
+        animatorJogador = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -29,17 +33,25 @@ public class Jogador : MonoBehaviour
 
         if (direcao != Vector3.zero)
         {
-            GetComponent<Animator>().SetBool("running", true);
+            animatorJogador.SetBool("running", true);
         }
         else
         {
-            GetComponent<Animator>().SetBool("running", false);
+            animatorJogador.SetBool("running", false);
+        }
+
+        if (vivo == false)
+        {
+            if (Input.GetButtonDown("Fire1"))
+            {
+                SceneManager.LoadScene("game");
+            }
         }
     }
 
     private void FixedUpdate()
     {
-        GetComponent<Rigidbody>().MovePosition(GetComponent<Rigidbody>().position + (direcao * speed * Time.deltaTime));
+        rigidbodyJogador.MovePosition(rigidbodyJogador.position + (direcao * speed * Time.deltaTime));
 
         Ray raio = Camera.main.ScreenPointToRay(Input.mousePosition);
         Debug.DrawRay(raio.origin, raio.direction * 100, Color.red);
@@ -53,15 +65,9 @@ public class Jogador : MonoBehaviour
 
             Quaternion novaRotacao = Quaternion.LookRotation(posicaoMiraJogador);
 
-            GetComponent<Rigidbody>().MoveRotation(novaRotacao);
+            rigidbodyJogador.MoveRotation(novaRotacao);
         }
 
-        if(vivo == false)
-        {
-            if(Input.GetButtonDown("Fire1"))
-            {
-                SceneManager.LoadScene("game");
-            }
-        }
+        
     }
 }

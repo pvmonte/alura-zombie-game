@@ -7,10 +7,18 @@ public class ControlaInimigo : MonoBehaviour
     public GameObject jogador;
     public float velocidade = 5;
 
+    Rigidbody rigidbodyInimigo;
+    Animator animatorInimigo;
+
     // Start is called before the first frame update
     void Start()
     {
+        jogador = GameObject.FindWithTag("Player");
+        int geraTipoZumbi = Random.Range(1, 28);
+        transform.GetChild(geraTipoZumbi).gameObject.SetActive(true);
 
+        rigidbodyInimigo = GetComponent<Rigidbody>();
+        animatorInimigo = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -26,24 +34,25 @@ public class ControlaInimigo : MonoBehaviour
         Vector3 direcao = jogador.transform.position - transform.position;
 
         Quaternion novaRotacao = Quaternion.LookRotation(direcao);
-        GetComponent<Rigidbody>().MoveRotation(novaRotacao);
+        rigidbodyInimigo.MoveRotation(novaRotacao);
 
         if (distancia > 2.5f)
         {
-            GetComponent<Rigidbody>().MovePosition(GetComponent<Rigidbody>().position + direcao.normalized * velocidade * Time.deltaTime);
+            rigidbodyInimigo.MovePosition(rigidbodyInimigo.position + direcao.normalized * velocidade * Time.deltaTime);
 
-            GetComponent<Animator>().SetBool("atacando", false);
+            animatorInimigo.SetBool("atacando", false);
         }
         else
         {
-            GetComponent<Animator>().SetBool("atacando", true);
+            animatorInimigo.SetBool("atacando", true);
         }
     }
 
     void AtacaJogador()
     {
         Time.timeScale = 0;
-        jogador.GetComponent<Jogador>().textoGameOver.SetActive(true);
-        jogador.GetComponent<Jogador>().vivo = false;
+        Jogador jogadorScript = jogador.GetComponent<Jogador>();
+        jogadorScript.textoGameOver.SetActive(true);
+        jogadorScript.vivo = false;
     }
 }
