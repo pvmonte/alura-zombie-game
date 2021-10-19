@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4544171000348092}
   - component: {fileID: 33670411586703474}
   - component: {fileID: 23066299433109638}
+  - component: {fileID: 65049992310402478}
   m_Layer: 0
   m_Name: Cerca_Continua_01
   m_TagString: Untagged
@@ -34,13 +35,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1572470896598266}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 43.16, y: 0, z: 1.49}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!23 &23066299433109638
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -80,3 +81,15 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1572470896598266}
   m_Mesh: {fileID: 4300000, guid: 2e1a2501aedb52247b010912b5de50d1, type: 3}
+--- !u!65 &65049992310402478
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1572470896598266}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.14515689, y: 3.2712703, z: 5.140083}
+  m_Center: {x: 0.072578445, y: 1.5973432, z: 2.5700414}

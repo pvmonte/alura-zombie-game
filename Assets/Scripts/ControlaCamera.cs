@@ -1,21 +1,19 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ControlaCamera : MonoBehaviour
-{
-    public GameObject jogador;
-    Vector3 dist = new Vector3();
+public class ControlaCamera : MonoBehaviour {
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        dist = transform.position - jogador.transform.position;
-    }
+    public GameObject Jogador;
+    private Vector3 distCompensar;
 
-    // Update is called once per frame
-    void Update()
-    {
-        transform.position = jogador.transform.position + dist;
-    }
+	// Use this for initialization
+	void Start () {
+        distCompensar = transform.position - Jogador.transform.position;
+	}
+	
+	// Update is called once per frame
+	void Update () {
+        transform.position = Jogador.transform.position + distCompensar;
+	}
 }

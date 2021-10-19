@@ -1,27 +1,34 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bala : MonoBehaviour
-{
-    public float velocidade;
-    Rigidbody rigidbodyBola;
+public class Bala : MonoBehaviour {
+
+    public float Velocidade = 20;
+    private Rigidbody rigidbodyBala;
 
     private void Start()
     {
-        rigidbodyBola = GetComponent<Rigidbody>();
+        rigidbodyBala = GetComponent<Rigidbody>();
     }
 
-    private void FixedUpdate()
-    {
-        rigidbodyBola.MovePosition(rigidbodyBola.position + transform.forward * velocidade * Time.deltaTime);
-    }
+    // Update is called once per frame
+    void FixedUpdate () {
+        rigidbodyBala.MovePosition
+            (rigidbodyBala.position + 
+            transform.forward * Velocidade * Time.deltaTime);
+	}
 
-    private void OnTriggerEnter(Collider objetoDeColisao)
+    void OnTriggerEnter(Collider objetoDeColisao)
     {
-        if (objetoDeColisao.tag == "Inimigo")
+        switch(objetoDeColisao.tag)
         {
-            Destroy(objetoDeColisao.gameObject);
+            case "Inimigo":
+            objetoDeColisao.GetComponent<ControlaInimigo>().TomarDano(1);
+                break;
+            case "Chefe":
+                objetoDeColisao.GetComponent<ControlaChefe>().TomarDano(1);
+                break;
         }
 
         Destroy(gameObject);
