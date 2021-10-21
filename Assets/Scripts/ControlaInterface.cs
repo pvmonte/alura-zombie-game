@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class ControlaInterface : MonoBehaviour {
+public class ControlaInterface : MonoBehaviour
+{
 
     private ControlaJogador scriptControlaJogador;
     public Slider SliderVidaJogador;
@@ -17,8 +18,11 @@ public class ControlaInterface : MonoBehaviour {
     int quantidadeDeZumbisMortos;
     public Text textoQuantidadeZumbisMortos;
 
-	// Use this for initialization
-	void Start () {
+    public Text textoChefeAparece;
+
+    // Use this for initialization
+    void Start()
+    {
         Time.timeScale = 1;
         scriptControlaJogador = GameObject.FindWithTag("Jogador")
                                 .GetComponent<ControlaJogador>();
@@ -28,7 +32,7 @@ public class ControlaInterface : MonoBehaviour {
         tempoPontuacaoSalvo = PlayerPrefs.GetFloat("PontuacaoMaxima");
     }
 
-    public void AtualizarSliderVidaJogador ()
+    public void AtualizarSliderVidaJogador()
     {
         SliderVidaJogador.value = scriptControlaJogador.statusJogador.vida;
     }
@@ -52,14 +56,14 @@ public class ControlaInterface : MonoBehaviour {
 
     void AjustarPontuacaoMaxima(int minutos, int segundos)
     {
-        if(Time.timeSinceLevelLoad > tempoPontuacaoSalvo)
+        if (Time.timeSinceLevelLoad > tempoPontuacaoSalvo)
         {
             tempoPontuacaoSalvo = Time.timeSinceLevelLoad;
             textoTempoPontuacaoMaxima.text = string.Format("Seu melhor tempo é {0}min e {1}s", minutos, segundos);
             PlayerPrefs.SetFloat("PontuacaoMaxima", tempoPontuacaoSalvo);
         }
 
-        if(textoTempoPontuacaoMaxima.text == "")
+        if (textoTempoPontuacaoMaxima.text == "")
         {
             minutos = (int)(tempoPontuacaoSalvo / 60);
             segundos = (int)(tempoPontuacaoSalvo % 60);
@@ -70,5 +74,38 @@ public class ControlaInterface : MonoBehaviour {
     public void Reiniciar()
     {
         SceneManager.LoadScene("game");
+    }
+
+    public void AparecerTextoChefeCriado()
+    {
+        StartCoroutine(DesaparecerText(1, textoChefeAparece));
+    }
+
+    IEnumerator DesaparecerText(float tempoDeSumico, Text textoParaSumir)
+    {
+        textoParaSumir.gameObject.SetActive(true);
+
+        print("text");
+        Color corTexto = textoParaSumir.color;
+        corTexto.a = 1;
+        textoParaSumir.color = corTexto;
+        
+        yield return new WaitForSeconds(tempoDeSumico);
+        float contador = 0;
+
+        while (textoParaSumir.color.a > 0)
+        {
+            contador += Time.deltaTime / tempoDeSumico;
+            corTexto.a = Mathf.Lerp(1, 0, contador);
+            textoParaSumir.color = corTexto;
+
+            if (textoParaSumir.color.a <= 0)
+            {
+                textoParaSumir.gameObject.SetActive(false);
+            }
+
+            yield return null;
+        }
+
     }
 }

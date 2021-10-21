@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bala : MonoBehaviour {
+public class Bala : MonoBehaviour
+{
 
     public float Velocidade = 20;
     private Rigidbody rigidbodyBala;
@@ -13,21 +14,28 @@ public class Bala : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void FixedUpdate () {
+    void FixedUpdate()
+    {
         rigidbodyBala.MovePosition
-            (rigidbodyBala.position + 
+            (rigidbodyBala.position +
             transform.forward * Velocidade * Time.deltaTime);
-	}
+    }
 
     void OnTriggerEnter(Collider objetoDeColisao)
     {
-        switch(objetoDeColisao.tag)
+        Quaternion rotacaoOpostaABala = Quaternion.LookRotation(-transform.forward);
+
+        switch (objetoDeColisao.tag)
         {
             case "Inimigo":
-            objetoDeColisao.GetComponent<ControlaInimigo>().TomarDano(1);
+                ControlaInimigo inimigo = objetoDeColisao.GetComponent<ControlaInimigo>();
+                inimigo.TomarDano(1);
+                inimigo.ParticulaSangue(transform.position, rotacaoOpostaABala);
                 break;
             case "Chefe":
-                objetoDeColisao.GetComponent<ControlaChefe>().TomarDano(1);
+                ControlaChefe chefe = objetoDeColisao.GetComponent<ControlaChefe>();
+                chefe.TomarDano(1);
+                chefe.ParticulaSangue(transform.position, rotacaoOpostaABala);
                 break;
         }
 

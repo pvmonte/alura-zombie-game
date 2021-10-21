@@ -650,6 +650,8 @@ MonoBehaviour:
   kitMedico: {fileID: 1060151288946202, guid: 6150c6f66b7034ec5b3672478195682a, type: 3}
   scriptControlaInterface: {fileID: 0}
   meuGerador: {fileID: 0}
+  particulaSangueZumbi: {fileID: 1522590855550148957, guid: e0aa8638783b46f48b7843bbafe821ae,
+    type: 3}
 --- !u!54 &54163392757231022
 Rigidbody:
   m_ObjectHideFlags: 0

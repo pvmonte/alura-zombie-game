@@ -24,6 +24,8 @@ public class ControlaInimigo : MonoBehaviour, IMatavel
     public ControlaInterface scriptControlaInterface;
     [HideInInspector] public GeradorZumbis meuGerador;
 
+    public GameObject particulaSangueZumbi;
+
     // Use this for initialization
     void Start()
     {
@@ -110,6 +112,11 @@ public class ControlaInimigo : MonoBehaviour, IMatavel
         {
             Morrer();
         }
+    }
+
+    public void ParticulaSangue(Vector3 posicao, Quaternion rotacao)
+    {
+        Instantiate(particulaSangueZumbi, posicao, rotacao);
     }
 
     public void Morrer()
